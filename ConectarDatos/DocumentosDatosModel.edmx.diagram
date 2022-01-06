@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="515c179110394cc68729ef44f2979a4b" Name="Diagram1">
+        <EntityTypeShape EntityType="DocumentosModel.documento" Width="1.5" PointX="0.75" PointY="1" />
+        <EntityTypeShape EntityType="DocumentosModel.indice_pagina_documento" Width="1.5" PointX="3" PointY="1.375" />
+        <AssociationConnector Association="DocumentosModel.FK_indice_p_indica_document" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

@@ -1,0 +1,156 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DocumentosModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="documento">
+          <Key>
+            <PropertyRef Name="docu_id" />
+          </Key>
+          <Property Name="docu_id" Type="int" Nullable="false" />
+          <Property Name="docu_name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="docu_description" Type="varchar" MaxLength="1000" />
+          <Property Name="docu_author_full_name" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="docu_author_email" Type="varchar" MaxLength="100" />
+          <Property Name="docu_serial_code" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="docu_created_at" Type="datetime" />
+          <Property Name="docu_updated_at" Type="datetime" />
+          <Property Name="docu_deleted_at" Type="datetime" />
+        </EntityType>
+        <EntityType Name="indice_pagina_documento">
+          <Key>
+            <PropertyRef Name="index_id" />
+          </Key>
+          <Property Name="index_id" Type="int" Nullable="false" />
+          <Property Name="docu_id" Type="int" Nullable="false" />
+          <Property Name="index_name" Type="varchar" MaxLength="100" />
+          <Property Name="index_page" Type="int" Nullable="false" />
+          <Property Name="index_created_at" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_indice_p_indica_document">
+          <End Role="documento" Type="Self.documento" Multiplicity="1" />
+          <End Role="indice_pagina_documento" Type="Self.indice_pagina_documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="documento">
+              <PropertyRef Name="docu_id" />
+            </Principal>
+            <Dependent Role="indice_pagina_documento">
+              <PropertyRef Name="docu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DocumentosModelStoreContainer">
+          <EntitySet Name="documento" EntityType="Self.documento" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="indice_pagina_documento" EntityType="Self.indice_pagina_documento" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_indice_p_indica_document" Association="Self.FK_indice_p_indica_document">
+            <End Role="documento" EntitySet="documento" />
+            <End Role="indice_pagina_documento" EntitySet="indice_pagina_documento" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DocumentosModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DocumentosEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="documentoes" EntityType="DocumentosModel.documento" />
+          <EntitySet Name="indice_pagina_documento" EntityType="DocumentosModel.indice_pagina_documento" />
+          <AssociationSet Name="FK_indice_p_indica_document" Association="DocumentosModel.FK_indice_p_indica_document">
+            <End Role="documento" EntitySet="documentoes" />
+            <End Role="indice_pagina_documento" EntitySet="indice_pagina_documento" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="documento">
+          <Key>
+            <PropertyRef Name="docu_id" />
+          </Key>
+          <Property Name="docu_id" Type="Int32" Nullable="false" />
+          <Property Name="docu_name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="docu_description" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="docu_author_full_name" Type="String" Nullable="false" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="docu_author_email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="docu_serial_code" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="docu_created_at" Type="DateTime" Precision="3" />
+          <Property Name="docu_updated_at" Type="DateTime" Precision="3" />
+          <Property Name="docu_deleted_at" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="indice_pagina_documento" Relationship="DocumentosModel.FK_indice_p_indica_document" FromRole="documento" ToRole="indice_pagina_documento" />
+        </EntityType>
+        <EntityType Name="indice_pagina_documento">
+          <Key>
+            <PropertyRef Name="index_id" />
+          </Key>
+          <Property Name="index_id" Type="Int32" Nullable="false" />
+          <Property Name="docu_id" Type="Int32" Nullable="false" />
+          <Property Name="index_name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="index_page" Type="Int32" Nullable="false" />
+          <Property Name="index_created_at" Type="DateTime" Nullable="false" Precision="3" />
+          <NavigationProperty Name="documento" Relationship="DocumentosModel.FK_indice_p_indica_document" FromRole="indice_pagina_documento" ToRole="documento" />
+        </EntityType>
+        <Association Name="FK_indice_p_indica_document">
+          <End Type="DocumentosModel.documento" Role="documento" Multiplicity="1" />
+          <End Type="DocumentosModel.indice_pagina_documento" Role="indice_pagina_documento" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="documento">
+              <PropertyRef Name="docu_id" />
+            </Principal>
+            <Dependent Role="indice_pagina_documento">
+              <PropertyRef Name="docu_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+    <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="DocumentosModelStoreContainer" CdmEntityContainer="DocumentosEntities">
+          <EntitySetMapping Name="documentoes">
+            <EntityTypeMapping TypeName="DocumentosModel.documento">
+              <MappingFragment StoreEntitySet="documento">
+                <ScalarProperty Name="docu_deleted_at" ColumnName="docu_deleted_at" />
+                <ScalarProperty Name="docu_updated_at" ColumnName="docu_updated_at" />
+                <ScalarProperty Name="docu_created_at" ColumnName="docu_created_at" />
+                <ScalarProperty Name="docu_serial_code" ColumnName="docu_serial_code" />
+                <ScalarProperty Name="docu_author_email" ColumnName="docu_author_email" />
+                <ScalarProperty Name="docu_author_full_name" ColumnName="docu_author_full_name" />
+                <ScalarProperty Name="docu_description" ColumnName="docu_description" />
+                <ScalarProperty Name="docu_name" ColumnName="docu_name" />
+                <ScalarProperty Name="docu_id" ColumnName="docu_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="indice_pagina_documento">
+            <EntityTypeMapping TypeName="DocumentosModel.indice_pagina_documento">
+              <MappingFragment StoreEntitySet="indice_pagina_documento">
+                <ScalarProperty Name="index_created_at" ColumnName="index_created_at" />
+                <ScalarProperty Name="index_page" ColumnName="index_page" />
+                <ScalarProperty Name="index_name" ColumnName="index_name" />
+                <ScalarProperty Name="docu_id" ColumnName="docu_id" />
+                <ScalarProperty Name="index_id" ColumnName="index_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+</Mapping></edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="False" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
